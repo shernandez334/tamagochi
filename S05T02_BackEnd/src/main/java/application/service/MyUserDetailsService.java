@@ -1,13 +1,13 @@
-package service;
+package application.service;
 
-import model.UserPrincipal;
-import model.Users;
+import application.model.UserPrincipal;
+import application.model.Users;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import repo.UserRepo;
+import application.repo.UserRepo;
 
 @Service
 public class MyUserDetailsService implements UserDetailsService {

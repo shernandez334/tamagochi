@@ -1,4 +1,4 @@
-package exception;
+package application.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,6 +1,6 @@
-package repo;
+package application.repo;
 
-import model.Users;
+import application.model.Users;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
 
