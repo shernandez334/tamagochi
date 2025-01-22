@@ -44,9 +44,8 @@ public class UserService {
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
         if (authentication.isAuthenticated()){
-            return jwtService.generateToken();
+            return ResponseEntity.ok(jwtService.generateToken(loginRequest.getUsername()));
         }
-
         return ResponseEntity.ok("Login successful");
     }
 }
