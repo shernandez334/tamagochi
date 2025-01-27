@@ -1,0 +1,78 @@
+
+.Loginform {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 30px 40px; /* Add spacing inside the form */
+    border-radius: 10px; /* Smooth rounded corners */
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3); 
+    text-align: center;
+    
+  }
+  
+  .Loginform h1 {
+    font-size: 2.2rem; 
+    margin-bottom: 20px; 
+    color:white; 
+  }
+  
+  .form-group {
+    margin-bottom: 20px; 
+    text-align: left;
+  }
+  
+  .form-group label {
+    font-size: 1rem; 
+    font-weight: bold; 
+    color:white; 
+    display: block; 
+    margin-bottom: 5px; 
+  }
+  
+  .form-group input {
+    width: 90%; /* Full-width input */
+    padding: 10px; /* Add padding for a comfortable input size */
+    font-size: 1rem; /* Match font size */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    transition: border-color 0.3s ease; /* Smooth focus effect */
+  }
+  
+  .form-group input:focus {
+    border-color: #4CAF50; /* Green border on focus */
+    outline: none; /* Remove the default focus outline */
+    box-shadow: 0 0 4px rgba(76, 175, 80, 0.5); /* Subtle green glow */
+  }
+  
+  .form-button {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.2rem; /* Larger button text */
+    font-weight: bold; /* Emphasize the button */
+    color: white; /* White text */
+    background-color: #4CAF50; /* Green background */
+    border: none; /* Remove borders */
+    border-radius: 5px; /* Smooth rounded corners */
+    cursor: pointer; /* Pointer cursor for interactivity */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Hover effects */
+  }
+  
+  .form-button:hover {
+    background-color: #45a049; /* Slightly darker green on hover */
+    transform: scale(1.05); /* Slight zoom effect */
+  }
+  
+  .form-footer {
+    margin-top: 20px; /* Space above the footer */
+    font-size: 0.9rem; /* Slightly smaller text */
+    color: white; /* Gray text */
+  }
+  
+  .form-footer a {
+    color: #4CAF50;
+    text-decoration: none; 
+    font-weight: bold; 
+    transition: color 0.3s ease;
+  }
+  
+  .form-footer a:hover {
+    color: #45a049; 
+  }  
