@@ -1,0 +1,96 @@
+/* Glowing Logo */
+.header-logo {
+    text-align: center;
+    width: 36%;
+    margin-top: -90px;
+
+    /* Slightly stronger purple glow */
+    filter: drop-shadow(0px 0px 7px rgba(138, 43, 226, 0.7)) 
+            drop-shadow(0px 0px 14px rgba(138, 43, 226, 0.5));
+
+    /* Smooth glowing animation */
+    animation: stronger-glow 2s infinite alternate ease-in-out;
+}
+
+/* Glowing Text */
+.logo-text {
+    text-align: center;
+    font-size: 2.4em; /* Slightly bigger for more impact */
+    font-weight: bold;
+    margin-top: -45px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 5px;
+    color: white;
+
+    /* Stronger but still smooth glow */
+    text-shadow: 
+        -1px -1px 4px #8A2BE2,  
+        1px -1px 4px #8A2BE2,  
+        -1px 1px 4px #8A2BE2,  
+        1px 1px 4px #8A2BE2,  
+        0 0 10px rgba(138, 43, 226, 0.7),
+        0 0 20px rgba(138, 43, 226, 0.5);
+
+    animation: stronger-glow 2s infinite alternate ease-in-out;
+}
+
+/* Stronger Glow Animation */
+@keyframes stronger-glow {
+    0% { 
+        filter: drop-shadow(0px 0px 7px rgba(138, 43, 226, 0.7)) 
+                drop-shadow(0px 0px 14px rgba(138, 43, 226, 0.5));
+        text-shadow: 
+            -1px -1px 4px #8A2BE2,  
+            1px -1px 4px #8A2BE2,  
+            -1px 1px 4px #8A2BE2,  
+            1px 1px 4px #8A2BE2,  
+            0 0 10px rgba(138, 43, 226, 0.7),
+            0 0 20px rgba(138, 43, 226, 0.5);
+    }
+    100% { 
+        filter: drop-shadow(0px 0px 10px rgba(138, 43, 226, 0.9)) 
+                drop-shadow(0px 0px 18px rgba(138, 43, 226, 0.7));
+        text-shadow: 
+            -1px -1px 5px #9B30FF,  
+            1px -1px 5px #9B30FF,  
+            -1px 1px 5px #9B30FF,  
+            1px 1px 5px #9B30FF,  
+            0 0 14px rgba(155, 48, 255, 0.8),
+            0 0 25px rgba(155, 48, 255, 0.6);
+    }
+}
+
+/* Hover Effect - Intensifies Glow */
+.header-logo:hover,
+.logo-text:hover {
+    animation: hover-stronger-glow 1.5s infinite alternate ease-in-out;
+    transform: scale(1.05);
+}
+
+/* Hover Glow - Extra Strong but Still Elegant */
+@keyframes hover-stronger-glow {
+    0% { 
+        filter: drop-shadow(0px 0px 10px rgba(138, 43, 226, 0.8)) 
+                drop-shadow(0px 0px 18px rgba(138, 43, 226, 0.6));
+        text-shadow: 
+            -1px -1px 6px #9B30FF,  
+            1px -1px 6px #9B30FF,  
+            -1px 1px 6px #9B30FF,  
+            1px 1px 6px #9B30FF,  
+            0 0 18px rgba(155, 48, 255, 0.9),
+            0 0 30px rgba(155, 48, 255, 0.7);
+    }
+    100% { 
+        filter: drop-shadow(0px 0px 14px rgba(138, 43, 226, 1)) 
+                drop-shadow(0px 0px 22px rgba(138, 43, 226, 0.9));
+        text-shadow: 
+            -2px -2px 8px #BF40FF,  
+            2px -2px 8px #BF40FF,  
+            -2px 2px 8px #BF40FF,  
+            2px 2px 8px #BF40FF,  
+            0 0 22px rgba(191, 64, 255, 1),
+            0 0 35px rgba(191, 64, 255, 0.8);
+    }
+}
