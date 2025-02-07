@@ -1,0 +1,71 @@
+/* Fullscreen Nebula Background */
+.nebula-bg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background: radial-gradient(circle at 30% 30%, rgba(70, 0, 140, 0.8), rgba(0, 0, 180, 0.6), rgba(0, 0, 50, 1)),
+                radial-gradient(circle at 70% 70%, rgba(255, 20, 147, 0.6), rgba(75, 0, 200, 0.5), rgba(0, 0, 50, 1));
+    background-size: cover;
+    animation: nebulaFlow 600s infinite alternate ease-in-out; /* ✅ Slowest 10-minute transition */
+    overflow: hidden;
+}
+
+/* Ultra-Slow Nebula Flow */
+@keyframes nebulaFlow {
+    0% {
+        background: radial-gradient(circle at 25% 35%, rgba(50, 0, 120, 0.8), rgba(0, 0, 180, 0.6), rgba(0, 0, 40, 1)),
+                    radial-gradient(circle at 75% 65%, rgba(255, 20, 147, 0.6), rgba(75, 0, 220, 0.5), rgba(0, 0, 40, 1));
+    }
+    25% {
+        background: radial-gradient(circle at 30% 40%, rgba(60, 0, 160, 0.8), rgba(0, 0, 200, 0.6), rgba(0, 0, 50, 1)),
+                    radial-gradient(circle at 70% 60%, rgba(200, 10, 200, 0.7), rgba(50, 0, 255, 0.6), rgba(0, 0, 50, 1));
+    }
+    50% {
+        background: radial-gradient(circle at 35% 50%, rgba(90, 0, 200, 0.9), rgba(0, 0, 220, 0.7), rgba(0, 0, 50, 1)),
+                    radial-gradient(circle at 65% 50%, rgba(255, 105, 180, 0.8), rgba(50, 0, 255, 0.7), rgba(0, 0, 50, 1));
+    }
+    75% {
+        background: radial-gradient(circle at 40% 60%, rgba(120, 0, 255, 0.9), rgba(0, 0, 250, 0.8), rgba(0, 0, 60, 1)),
+                    radial-gradient(circle at 60% 40%, rgba(255, 80, 200, 0.8), rgba(30, 0, 255, 0.7), rgba(0, 0, 60, 1));
+    }
+    100% {
+        background: radial-gradient(circle at 35% 25%, rgba(138, 43, 226, 1), rgba(0, 0, 220, 0.8), rgba(0, 0, 50, 1)),
+                    radial-gradient(circle at 65% 75%, rgba(255, 105, 180, 1), rgba(50, 0, 255, 0.8), rgba(0, 0, 50, 1));
+    }
+}
+
+/* Stars - Keep Twinkling Faster */
+.stars {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: hidden;
+}
+
+/* Star Appearance */
+.star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: white;
+    opacity: 0.7;
+    animation: twinkle 4s infinite alternate ease-in-out; /* ✅ Normal twinkle speed */
+}
+
+/* Random Twinkle Speeds */
+.star:nth-child(odd) {
+    animation-duration: 6s; /* Some stars twinkle at different rates */
+}
+
+.star:nth-child(even) {
+    animation-duration: 10s;
+}
+
+/* Natural Twinkling Effect */
+@keyframes twinkle {
+    0% { opacity: 0.2; }
+    50% { opacity: 1; }
+    75% { opacity: 0.5; }
+    100% { opacity: 0.8; }
+}
