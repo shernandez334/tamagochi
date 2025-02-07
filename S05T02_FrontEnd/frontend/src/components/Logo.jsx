@@ -4,9 +4,9 @@ import logo from "../assets/logo.png";
 
 const Logo = () => {
   return (
-    <div className="auth-header">
-      <img src={logo} alt="CrewPets Logo" className="auth-logo" />
-      <h1 className="auth-title">CrewPets</h1>
+    <div className="logo-container">
+      <img src={logo} alt="CrewPets Logo" className="logo-image" />
+      <h1 className="logo-text">CrewPets</h1>
     </div>
   );
 };

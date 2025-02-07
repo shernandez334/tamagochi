@@ -35,7 +35,7 @@ const Register = () => {
     e.preventDefault();
     setMessage("");
   
-    const { username, password, confirmPassword } = formData; // ✅ Always use destructured values
+    const { username, password, confirmPassword } = formData; 
   
     if (!username.trim() || !password.trim() || !confirmPassword.trim()) {
       setMessage("All fields are required.");
