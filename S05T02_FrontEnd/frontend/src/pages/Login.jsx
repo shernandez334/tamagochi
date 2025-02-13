@@ -42,9 +42,9 @@ const Login = () => {
 
       if (response.ok) {
         const data = await response.json();
-        localStorage.setItem("authToken", data.token); // ✅ Store token (if applicable)
+        localStorage.setItem("authToken", data.token); 
         setMessage("Login successful!");
-        setTimeout(() => navigate("/dashboard"), 1000); // ✅ Redirect after login
+        setTimeout(() => navigate("/dashboard"), 1000); 
       } else {
         const errorData = await response.json();
         setMessage(errorData.message || "Invalid username or password.");
