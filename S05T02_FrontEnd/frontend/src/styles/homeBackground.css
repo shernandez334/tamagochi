@@ -1,84 +1,138 @@
-/* Galactic Dashboard Container */
-.dashboard-container {
+/* Home Container with Nebula */
+.home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  background: radial-gradient(circle at top, rgba(180, 60, 255, 1) 10%, rgba(40, 0, 60, 0.95) 80%);
+  background: radial-gradient(circle at top, 
+    rgba(120, 80, 255, 1) 10%, /* Purple-Blue Mix */
+    rgba(40, 0, 60, 0.95) 80%);
   background-color: black;
   overflow: hidden;
   position: relative;
   padding-top: 80px;
 }
 
-/* Multi-Layered Animated Nebula */
+/* Animated Nebula - Stronger Color Changes */
 .nebula {
   position: absolute;
   top: 50%;
   left: 50%;
   width: 250%;
   height: 250%;
-  background: radial-gradient(circle, rgba(255, 80, 200, 0.6) 10%, rgba(80, 20, 180, 0.4) 50%, transparent 90%);
+  background: radial-gradient(circle, 
+    rgba(80, 120, 255, 0.8) 10%,  /* Electric Blue */
+    rgba(140, 40, 255, 0.7) 30%,  /* Deep Purple-Magenta */
+    rgba(70, 20, 180, 0.6) 50%,   /* Neon Violet */
+    rgba(30, 10, 120, 0.5) 70%,   /* Dark Blue */
+    transparent 90%);             /* Fade Out */
   transform: translate(-50%, -50%);
   filter: blur(120px);
   z-index: -2;
-  animation: nebula-move 10s infinite alternate ease-in-out;
+  animation: nebula-move 10s infinite alternate ease-in-out,
+             nebula-color 12s infinite alternate ease-in-out;
 }
 
-/* Additional Color Layers for Depth */
+/* Additional Color Layers for More Depth & Stronger Mixing */
 .nebula::before,
 .nebula::after {
   content: "";
   position: absolute;
   width: 120%;
   height: 120%;
-  background: radial-gradient(circle, rgba(255, 40, 180, 0.4) 15%, rgba(20, 0, 80, 0.3) 50%, transparent 90%);
+  background: radial-gradient(circle, 
+    rgba(100, 50, 255, 0.6) 15%, /* More Purple */
+    rgba(60, 100, 255, 0.5) 40%, /* Brighter Electric Blue */
+    rgba(40, 20, 150, 0.4) 70%,  /* Deep Blue-Purple Mix */
+    transparent 95%);
   filter: blur(90px);
   border-radius: 50%;
   z-index: -1;
-  animation: nebula-flow 15s infinite alternate ease-in-out;
+  animation: nebula-flow 14s infinite alternate ease-in-out,
+             nebula-color 12s infinite alternate ease-in-out;
 }
 
+/* Nebula Animation - Movement */
 @keyframes nebula-move {
-  0% { transform: translate(-50%, -50%) scale(1.1); }
-  100% { transform: translate(-50%, -50%) scale(1.3); }
+  0% { transform: translate(-50%, -50%) scale(1); }
+  100% { transform: translate(-50%, -50%) scale(1.2); }
 }
 
+/* Nebula Animation - Rotation */
 @keyframes nebula-flow {
-  0% { transform: rotate(0deg) scale(1.05); }
-  100% { transform: rotate(360deg) scale(1.2); }
+  0% { transform: rotate(0deg) scale(1); }
+  100% { transform: rotate(360deg) scale(1.1); }
 }
 
-/* Twinkling Stars */
-.stars {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  z-index: -2;
-  pointer-events: none;
+/* Nebula Animation - More Noticeable Color Change */
+@keyframes nebula-color {
+  0% { 
+    background: radial-gradient(circle, 
+      rgba(80, 120, 255, 0.8) 10%,  /* Electric Blue */
+      rgba(140, 40, 255, 0.7) 30%,  /* Deep Purple-Magenta */
+      rgba(70, 20, 180, 0.6) 50%,   /* Neon Violet */
+      rgba(30, 10, 120, 0.5) 70%,   /* Dark Blue */
+      transparent 90%);
+  }
+  20% {
+    background: radial-gradient(circle, 
+      rgba(60, 40, 255, 0.8) 10%,   /* Deep Purple */
+      rgba(80, 20, 255, 0.7) 30%,   /* More Intense Blue */
+      rgba(40, 10, 200, 0.6) 50%,   /* Violet */
+      rgba(20, 0, 100, 0.5) 70%,    /* Darker Blue */
+      transparent 90%);
+  }
+  40% { 
+    background: radial-gradient(circle, 
+      rgba(100, 60, 255, 0.8) 10%,  /* Brighter Magenta-Purple */
+      rgba(80, 20, 200, 0.7) 30%,   /* Violet Blue */
+      rgba(50, 10, 160, 0.6) 50%,   /* Deep Neon Purple */
+      rgba(30, 0, 120, 0.5) 70%,    /* Dark Blue */
+      transparent 90%);
+  }
+  60% { 
+    background: radial-gradient(circle, 
+      rgba(140, 50, 255, 0.8) 10%,  /* Brightest Magenta */
+      rgba(100, 30, 200, 0.7) 30%,  /* Rich Purple */
+      rgba(60, 10, 160, 0.6) 50%,   /* Blended Blue-Violet */
+      rgba(30, 0, 100, 0.5) 70%,    /* Dark Blue */
+      transparent 90%);
+  }
+  80% { 
+    background: radial-gradient(circle, 
+      rgba(60, 120, 255, 0.8) 10%,  
+      rgba(40, 100, 255, 0.7) 30%,  
+      rgba(20, 80, 200, 0.6) 50%,   
+      rgba(10, 60, 150, 0.5) 70%,   /* Deep Dark Blue */
+      transparent 90%);
+  }
+  100% { 
+    background: radial-gradient(circle, 
+      rgba(80, 120, 255, 0.8) 10%,  /* Back to Electric Blue */
+      rgba(140, 40, 255, 0.7) 30%,  /* Purple-Magenta Mix */
+      rgba(70, 20, 180, 0.6) 50%,   /* Violet */
+      rgba(30, 10, 120, 0.5) 70%,   /* Deep Blue */
+      transparent 90%);
+  }
 }
 
-.stars::before,
-.stars::after {
-  content: "";
+.star {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  background: radial-gradient(white 5%, transparent 20%) repeat;
-  background-size: 2px 2px;
-  opacity: 0.8;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  opacity: 0;
   animation: twinkle 3s infinite alternate ease-in-out;
 }
 
 @keyframes twinkle {
-  0% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 1; transform: scale(1.1); }
-  100% { opacity: 0.6; transform: scale(1); }
+  0% { opacity: 0; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.3); }
+  100% { opacity: 0.4; transform: scale(1); }
 }
+
 
 /* Dashboard Header */
 .dashboard-header {

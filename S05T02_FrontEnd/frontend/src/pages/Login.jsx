@@ -21,7 +21,7 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(""); // Clear previous messages
+    setMessage(""); 
 
     const { username, password } = formData;
 
@@ -44,7 +44,7 @@ const Login = () => {
         const data = await response.json();
         localStorage.setItem("authToken", data.token); 
         setMessage("Login successful!");
-        setTimeout(() => navigate("/dashboard"), 1000); 
+        setTimeout(() => navigate("/home"), 1000); 
       } else {
         const errorData = await response.json();
         setMessage(errorData.message || "Invalid username or password.");

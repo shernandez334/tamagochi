@@ -6,7 +6,7 @@ const HomeLogo = () => {
   return (
     <div className="home-logo-container">
       <img src={logo} alt="CrewPets Logo" className="home-logo-image" />
-      <h1 className="home-logo-text">CrewPets</h1>
+      <h1 className="home-logo-title">CrewPets</h1>
     </div>
   );
 };
