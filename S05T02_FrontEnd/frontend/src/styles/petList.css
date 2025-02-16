@@ -1,19 +1,19 @@
-/* 🔹 PET LIST CONTAINER - Styled Section */
 .pet-list-container {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 90%;
     max-width: 1000px;
-    max-height: 70vh;
-    overflow-y: auto;
+    height: auto;
+    min-height: 40vh;
+    overflow-x: hidden;
+    overflow-y: hidden;
     padding: 15px;
     border-radius: 12px;
     background: rgba(10, 10, 30, 0.8);
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
 }
 
-/* 🔹 PET LIST TITLE - Stylish Glow */
 .pet-list-title {
     font-size: 24px;
     font-weight: bold;
@@ -25,7 +25,6 @@
                  0px 0px 15px rgba(255, 50, 255, 0.7);
 }
 
-/* 🔹 PET LIST - Less Spacing, More Compact */
 .pet-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -102,4 +101,19 @@
     .pet-list {
         grid-template-columns: repeat(1, 1fr); 
     }
+}
+
+.energy-bar {
+    width: 100%;
+    height: 10px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 5px 0;
+}
+
+.energy-fill {
+    height: 100%;
+    background: linear-gradient(to right, #ff4d4d, #ffcc00, #00ff00);
+    transition: width 0.5s ease-in-out;
 }

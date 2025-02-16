@@ -1,18 +1,31 @@
-const API_URL = "http://localhost:8080"; 
+const API_URL = "http://localhost:8080";
 
-export const updatePetEnergy = async (petId, change) => {
+// 🔹 Update pet energy
+export const updatePetEnergy = async (petId, action) => {
     const token = localStorage.getItem("authToken");
 
-    await fetch(`http://localhost:8080/pets/${petId}/energy`, {
-        method: "PATCH",
-        headers: {
-            "Authorization": `Bearer ${token}`,
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ change })
-    });
+    try {
+        const response = await fetch(`${API_URL}/pets/${petId}/energy`, {
+            method: "PATCH",
+            headers: {
+                "Authorization": `Bearer ${token}`,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ action })
+        });
+
+        if (!response.ok) {
+            throw new Error("Failed to update energy");
+        }
+
+        return await response.text();
+    } catch (error) {
+        console.error("Error updating energy:", error);
+        return null;
+    }
 };
 
+// 🔹 Fetch user pets
 export const fetchUserPets = async (token) => {
     try {
         const response = await fetch(`${API_URL}/pets`, {
@@ -31,20 +44,20 @@ export const fetchUserPets = async (token) => {
     }
 };
 
-// 🔹 Function to create a new pet
+// 🔹 Create a new pet
 export const createPet = async (petName, token) => {
     try {
-        const response = await fetch(`${API_URL}/create`, {
+        const response = await fetch(`${API_URL}/create`, {  
             method: "POST",
             headers: {
                 "Authorization": `Bearer ${token}`,
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(petName)
+            body: JSON.stringify(petName)  // ✅ Send raw string instead of an object
         });
 
         if (!response.ok) throw new Error("Failed to create pet");
-        return await response.json();
+        return await response.text();  // ✅ Expect text response from backend
     } catch (error) {
         console.error("Error creating pet:", error);
         return null;

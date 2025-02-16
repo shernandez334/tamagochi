@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../styles/homeBackground.css"; 
 import SmallLogo from "../components/HomeLogo.jsx";
 import PetList from "../components/PetList.jsx"; 
+import PetCreation from "../components/PetCreation.jsx";
 
 const generateStars = (num) => {
     let stars = [];
@@ -20,6 +21,7 @@ const generateStars = (num) => {
 const HomeLayout = ({ children }) => {
     const navigate = useNavigate();
     const [token, setToken] = useState("");
+    const [refreshTrigger, setRefreshTrigger] = useState(0); // ✅ Forces PetList to reload
 
     useEffect(() => {
         const storedToken = localStorage.getItem("authToken");
@@ -42,7 +44,6 @@ const HomeLayout = ({ children }) => {
         <div className="home-container"> 
             <div className="stars">{generateStars(600)}</div> 
 
-            {/* ✅ Navbar with Logo & Logout */}
             <div className="home-navbar">
                 <div className="navbar-content">
                     <SmallLogo />
@@ -50,8 +51,11 @@ const HomeLayout = ({ children }) => {
                 <button className="logout-button" onClick={handleLogout}>Logout</button>
             </div>
 
-            {/* ✅ Integrating the PetList component */}
-            <PetList token={token} />
+            {/* ✅ PetList refreshes when `refreshTrigger` changes */}
+            <PetList token={token} refreshTrigger={refreshTrigger} />
+
+            {/* ✅ PetCreation updates `refreshTrigger` to reload PetList */}
+            <PetCreation token={token} refreshPets={() => setRefreshTrigger((prev) => prev + 1)} />
 
             {children}
         </div>
