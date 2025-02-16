@@ -1,17 +1,105 @@
-.pets-title {
-    font-size: 26px;
-    font-weight: bold;
-    text-align: center;
-    color: white;
-    margin-top: 160px; 
-    padding-top: 20px;
-}
-
-.pet-list {
+/* 🔹 PET LIST CONTAINER - Styled Section */
+.pet-list-container {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 70vh;
+    overflow-y: auto;
+    padding: 15px;
+    border-radius: 12px;
+    background: rgba(10, 10, 30, 0.8);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+/* 🔹 PET LIST TITLE - Stylish Glow */
+.pet-list-title {
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    color: white;
+    margin-bottom: 8px;
+    text-shadow: 0px 0px 8px rgba(255, 100, 255, 0.8),
+                 0px 0px 15px rgba(255, 50, 255, 0.7);
+}
+
+/* 🔹 PET LIST - Less Spacing, More Compact */
+.pet-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    justify-content: center;
+    width: 100%;
+    padding: 5px;
+}
+
+/* 🔹 PET ITEM - Smooth Card */
+.pet-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgba(30, 10, 50, 0.85);
+    padding: 12px;
+    border-radius: 10px;
     text-align: center;
     color: white;
-    margin-top: 20px; 
+    width: 160px; /* ✅ Slightly reduced size */
+    height: 200px;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2),
+                0 0 30px rgba(80, 80, 200, 0.3);
+    transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.pet-item:hover {
+    transform: scale(1.04);
+    box-shadow: 0 0 25px rgba(255, 100, 255, 0.8),
+                0 0 40px rgba(100, 50, 255, 0.7);
+}
+
+/* 🔹 PET IMAGE */
+.pet-image {
+    width: 90px;
+    height: auto;
+    margin-bottom: 8px;
+    filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.6));
+}
+
+/* 🔹 PET NAME - Subtle Glow */
+.pet-item h3 {
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: white;
+    text-shadow: 0px 0px 8px rgba(255, 100, 255, 0.7),
+                 0px 0px 12px rgba(200, 50, 255, 0.6);
+}
+
+.pet-item p {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.8);
+    margin: 3px 0;
+}
+
+.pet-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.pet-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 100, 255, 0.7);
+    border-radius: 4px;
+}
+
+@media (max-width: 1024px) {
+    .pet-list {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 768px) {
+    .pet-list {
+        grid-template-columns: repeat(1, 1fr); 
+    }
 }

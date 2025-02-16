@@ -1,20 +1,23 @@
-/* Home Container with Nebula */
 .home-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  height: 100vh;
+  min-height: 100vh; 
+  overflow-y: auto;  
+  overflow-x: hidden;
   background: radial-gradient(circle at top, 
-    rgba(120, 80, 255, 1) 10%, /* Purple-Blue Mix */
-    rgba(40, 0, 60, 0.95) 80%);
+    rgba(80, 160, 255, 1) 10%, /* Bright Electric Blue */
+    rgba(60, 90, 200, 0.9) 40%, /* Deep Blue */
+    rgba(40, 0, 80, 0.8) 70%,   /* Dark Space Purple */
+    rgba(10, 0, 30, 0.95) 100%); /* Black Space */
+  background-attachment: fixed; 
   background-color: black;
   overflow: hidden;
   position: relative;
   padding-top: 80px;
 }
 
-/* Animated Nebula - Stronger Color Changes */
 .nebula {
   position: absolute;
   top: 50%;
@@ -22,19 +25,18 @@
   width: 250%;
   height: 250%;
   background: radial-gradient(circle, 
-    rgba(80, 120, 255, 0.8) 10%,  /* Electric Blue */
-    rgba(140, 40, 255, 0.7) 30%,  /* Deep Purple-Magenta */
-    rgba(70, 20, 180, 0.6) 50%,   /* Neon Violet */
-    rgba(30, 10, 120, 0.5) 70%,   /* Dark Blue */
-    transparent 90%);             /* Fade Out */
+    rgba(100, 180, 255, 0.9) 10%,  /* Bright Cyan */
+    rgba(80, 130, 255, 0.8) 30%,   /* Electric Blue */
+    rgba(100, 50, 200, 0.6) 50%,   /* Purple Tint */
+    rgba(40, 10, 150, 0.5) 70%,    /* Deep Blue */
+    transparent 90%);              /* Fade Out */
   transform: translate(-50%, -50%);
   filter: blur(120px);
   z-index: -2;
   animation: nebula-move 10s infinite alternate ease-in-out,
-             nebula-color 12s infinite alternate ease-in-out;
+             nebula-color 14s infinite alternate ease-in-out;
 }
 
-/* Additional Color Layers for More Depth & Stronger Mixing */
 .nebula::before,
 .nebula::after {
   content: "";
@@ -42,77 +44,66 @@
   width: 120%;
   height: 120%;
   background: radial-gradient(circle, 
-    rgba(100, 50, 255, 0.6) 15%, /* More Purple */
-    rgba(60, 100, 255, 0.5) 40%, /* Brighter Electric Blue */
-    rgba(40, 20, 150, 0.4) 70%,  /* Deep Blue-Purple Mix */
+    rgba(80, 140, 255, 0.8) 20%, 
+    rgba(100, 50, 255, 0.7) 40%,  
+    rgba(60, 30, 180, 0.5) 70%,
     transparent 95%);
-  filter: blur(90px);
+  filter: blur(100px);
   border-radius: 50%;
   z-index: -1;
-  animation: nebula-flow 14s infinite alternate ease-in-out,
-             nebula-color 12s infinite alternate ease-in-out;
+  animation: nebula-flow 16s infinite alternate ease-in-out,
+             nebula-color 14s infinite alternate ease-in-out;
 }
 
-/* Nebula Animation - Movement */
 @keyframes nebula-move {
   0% { transform: translate(-50%, -50%) scale(1); }
   100% { transform: translate(-50%, -50%) scale(1.2); }
 }
 
-/* Nebula Animation - Rotation */
 @keyframes nebula-flow {
   0% { transform: rotate(0deg) scale(1); }
   100% { transform: rotate(360deg) scale(1.1); }
 }
 
-/* Nebula Animation - More Noticeable Color Change */
 @keyframes nebula-color {
   0% { 
     background: radial-gradient(circle, 
-      rgba(80, 120, 255, 0.8) 10%,  /* Electric Blue */
-      rgba(140, 40, 255, 0.7) 30%,  /* Deep Purple-Magenta */
-      rgba(70, 20, 180, 0.6) 50%,   /* Neon Violet */
-      rgba(30, 10, 120, 0.5) 70%,   /* Dark Blue */
+      rgba(100, 180, 255, 0.9) 10%,  
+      rgba(80, 130, 255, 0.8) 30%,   
+      rgba(100, 50, 200, 0.6) 50%,   
+      rgba(40, 10, 150, 0.5) 70%,    
       transparent 90%);
   }
-  20% {
+  25% {
     background: radial-gradient(circle, 
-      rgba(60, 40, 255, 0.8) 10%,   /* Deep Purple */
-      rgba(80, 20, 255, 0.7) 30%,   /* More Intense Blue */
-      rgba(40, 10, 200, 0.6) 50%,   /* Violet */
-      rgba(20, 0, 100, 0.5) 70%,    /* Darker Blue */
+      rgba(60, 120, 255, 0.9) 10%,   
+      rgba(80, 100, 255, 0.8) 30%,   
+      rgba(90, 40, 180, 0.6) 50%,    
+      rgba(30, 0, 120, 0.5) 70%,     
       transparent 90%);
   }
-  40% { 
+  50% { 
     background: radial-gradient(circle, 
-      rgba(100, 60, 255, 0.8) 10%,  /* Brighter Magenta-Purple */
-      rgba(80, 20, 200, 0.7) 30%,   /* Violet Blue */
-      rgba(50, 10, 160, 0.6) 50%,   /* Deep Neon Purple */
-      rgba(30, 0, 120, 0.5) 70%,    /* Dark Blue */
+      rgba(120, 190, 255, 0.9) 10%,  
+      rgba(100, 140, 255, 0.8) 30%,   
+      rgba(110, 60, 210, 0.6) 50%,    
+      rgba(50, 20, 160, 0.5) 70%,     
       transparent 90%);
   }
-  60% { 
+  75% { 
     background: radial-gradient(circle, 
-      rgba(140, 50, 255, 0.8) 10%,  /* Brightest Magenta */
-      rgba(100, 30, 200, 0.7) 30%,  /* Rich Purple */
-      rgba(60, 10, 160, 0.6) 50%,   /* Blended Blue-Violet */
-      rgba(30, 0, 100, 0.5) 70%,    /* Dark Blue */
-      transparent 90%);
-  }
-  80% { 
-    background: radial-gradient(circle, 
-      rgba(60, 120, 255, 0.8) 10%,  
-      rgba(40, 100, 255, 0.7) 30%,  
-      rgba(20, 80, 200, 0.6) 50%,   
-      rgba(10, 60, 150, 0.5) 70%,   /* Deep Dark Blue */
+      rgba(90, 160, 255, 0.9) 10%,  
+      rgba(80, 110, 255, 0.8) 30%,  
+      rgba(70, 30, 170, 0.6) 50%,   
+      rgba(30, 0, 100, 0.5) 70%,    
       transparent 90%);
   }
   100% { 
     background: radial-gradient(circle, 
-      rgba(80, 120, 255, 0.8) 10%,  /* Back to Electric Blue */
-      rgba(140, 40, 255, 0.7) 30%,  /* Purple-Magenta Mix */
-      rgba(70, 20, 180, 0.6) 50%,   /* Violet */
-      rgba(30, 10, 120, 0.5) 70%,   /* Deep Blue */
+      rgba(100, 180, 255, 0.9) 10%,  
+      rgba(80, 130, 255, 0.8) 30%,   
+      rgba(100, 50, 200, 0.6) 50%,   
+      rgba(40, 10, 150, 0.5) 70%,    
       transparent 90%);
   }
 }
@@ -133,8 +124,6 @@
   100% { opacity: 0.4; transform: scale(1); }
 }
 
-
-/* Dashboard Header */
 .dashboard-header {
   position: absolute;
   top: 20px;
@@ -157,15 +146,31 @@
   100% { box-shadow: 0 0 50px rgba(255, 200, 255, 1); }
 }
 
-/* Form Button with Neon Effect */
-.form-button {
+.home-navbar {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center; 
+  padding: 20px;
+  position: relative;
+}
+
+.navbar-content {
+  display: flex;
+  align-items: center;
+  justify-content: center; 
+  flex-grow: 1;
+  position: relative; 
+}
+
+.logout-button {
   position: absolute;
-  top: 30px;
-  right: 40px;
+  top: -40px;
+  right: 60px; 
   background-color: rgba(255, 40, 180, 0.95);
   color: white;
-  padding: 12px 28px;
-  font-size: 1.2rem;
+  padding: 10px 20px;
+  font-size: 1rem;
   font-weight: bold;
   border: none;
   border-radius: 10px;
@@ -174,8 +179,32 @@
   box-shadow: 0 0 30px rgba(255, 80, 200, 1), 0 0 20px rgba(255, 50, 200, 0.9);
 }
 
-.form-button:hover {
+.logout-button:hover {
   background-color: rgba(255, 60, 200, 1);
-  transform: scale(1.2);
+  transform: scale(1.1);
   box-shadow: 0 0 50px rgba(255, 100, 255, 1), 0 0 30px rgba(255, 100, 255, 0.9);
+}
+
+.pets-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 800px;
+  max-height: 60vh; 
+  overflow-y: auto; 
+  padding: 20px;
+  border-radius: 10px;
+  background: rgba(20, 20, 20, 0.5); 
+}
+
+/* Pets List - Allow Scrolling Inside */
+.pets-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+  max-height: 50vh; 
+  overflow-y: auto; 
+  padding: 10px;
 }

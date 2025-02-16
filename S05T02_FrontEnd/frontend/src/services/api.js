@@ -1,6 +1,18 @@
-const API_URL = "http://localhost:8080"; // Your backend URL
+const API_URL = "http://localhost:8080"; 
 
-// 🔹 Function to fetch user's pets
+export const updatePetEnergy = async (petId, change) => {
+    const token = localStorage.getItem("authToken");
+
+    await fetch(`http://localhost:8080/pets/${petId}/energy`, {
+        method: "PATCH",
+        headers: {
+            "Authorization": `Bearer ${token}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ change })
+    });
+};
+
 export const fetchUserPets = async (token) => {
     try {
         const response = await fetch(`${API_URL}/pets`, {
