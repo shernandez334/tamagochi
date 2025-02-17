@@ -53,25 +53,18 @@ public class UserService {
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
-    public ResponseEntity<AuthResponse> loginUserAuth(LoginRequest loginRequest){
+    public ResponseEntity<AuthResponse> loginUserAuth(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword())
         );
-       String token = jwtService.generateToken(loginRequest.getUsername());
-       return ResponseEntity.ok(new AuthResponse(token));
-    }
-
-    public ResponseEntity<?> createPet(){
-
-    }
-
-    public ResponseEntity<?> showUserPets(String token){
-        String username = jwtService.extractUsername(token);
-        if (username == null || username.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Username or token");
+        Users user = userRepo.findByUsername(loginRequest.getUsername());
+        if (user == null) {
+            System.out.println("❌ User not found in database: " + loginRequest.getUsername());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-        Users user = userRepo.findByUsername(username);
-        List<Pet> pets = petRepo.findByOwnerId(user.getId());
-        return ResponseEntity.ok(pets);
+        String token = jwtService.generateToken(user.getUsername());
+        System.out.println("🔑 Login Successful: " + user.getUsername() + " | Role: " + user.getUserRole().name());
+        return ResponseEntity.ok(new AuthResponse(token, user.getUserRole().name()));
     }
+
 }

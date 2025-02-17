@@ -7,9 +7,11 @@ const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:8080";
 
 const Login = () => {
   console.log("Rendering Login.jsx");
+  
   const navigate = useNavigate();
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false); // ✅ Prevents multiple clicks
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -21,12 +23,14 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setMessage(""); 
+    setMessage("");
+    setLoading(true); // ✅ Disable button while logging in
 
     const { username, password } = formData;
 
     if (!username.trim() || !password.trim()) {
       setMessage("Username and password are required.");
+      setLoading(false);
       return;
     }
 
@@ -40,18 +44,27 @@ const Login = () => {
         }),
       });
 
-      if (response.ok) {
-        const data = await response.json();
-        localStorage.setItem("authToken", data.token); 
-        setMessage("Login successful!");
-        setTimeout(() => navigate("/home"), 1000); 
-      } else {
+      if (!response.ok) {
         const errorData = await response.json();
         setMessage(errorData.message || "Invalid username or password.");
+        setLoading(false);
+        return;
       }
+
+      const data = await response.json();
+      console.log("🔑 Login Response:", data); 
+
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("userRole", data.role);
+
+      setMessage("✅ Login successful! Redirecting...");
+      
+      setTimeout(() => navigate("/home"), 1000); 
     } catch (error) {
-      console.error("Login Error:", error);
+      console.error("🚨 Login Error:", error);
       setMessage("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -77,7 +90,8 @@ const Login = () => {
             onChange: handleChange,
           },
         ]}
-        buttonText="Login"
+        buttonText={loading ? "Logging in..." : "Login"} // ✅ Dynamic button text
+        buttonDisabled={loading} // ✅ Disables button during request
         onSubmit={handleSubmit}
         error={message}
         message={

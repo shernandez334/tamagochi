@@ -28,7 +28,12 @@ public class JWTService {
     @Autowired
     private UserRepo userRepo;
 
-    private String secretKey = "256-bit-password";
+    private final String secretKey;
+
+    public JWTService() {
+        SecretKey key = Keys.secretKeyFor(io.jsonwebtoken.SignatureAlgorithm.HS256);
+        this.secretKey = Base64.getEncoder().encodeToString(key.getEncoded());
+    }
 
     public String generateToken(String username) {
         Map<String, Object> claims = new HashMap<>();

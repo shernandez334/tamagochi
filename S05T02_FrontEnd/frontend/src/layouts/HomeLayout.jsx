@@ -21,22 +21,27 @@ const generateStars = (num) => {
 const HomeLayout = ({ children }) => {
     const navigate = useNavigate();
     const [token, setToken] = useState("");
-    const [refreshTrigger, setRefreshTrigger] = useState(0); // ✅ Forces PetList to reload
+    const [isAdmin, setIsAdmin] = useState(false); 
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
 
     useEffect(() => {
-        const storedToken = localStorage.getItem("authToken");
-
+        const storedToken = localStorage.getItem("token");
+        const userRole = localStorage.getItem("userRole");  
+    
         if (!storedToken) {
             console.warn("⚠️ No token found. Redirecting to login.");
             navigate("/login");
             return;
         }
-
+    
         setToken(storedToken);
+        setIsAdmin(userRole === "ADMIN"); 
     }, [navigate]);
+    
 
     const handleLogout = () => {
-        localStorage.removeItem("authToken");
+        localStorage.removeItem("token");
+        localStorage.removeItem("userRole"); // ✅ Ensure userRole is removed too
         navigate("/login");
     };
 
@@ -51,10 +56,9 @@ const HomeLayout = ({ children }) => {
                 <button className="logout-button" onClick={handleLogout}>Logout</button>
             </div>
 
-            {/* ✅ PetList refreshes when `refreshTrigger` changes */}
-            <PetList token={token} refreshTrigger={refreshTrigger} />
+            {/* ✅ Pass `isAdmin` to PetList */}
+            <PetList token={token} refreshTrigger={refreshTrigger} isAdmin={isAdmin} />
 
-            {/* ✅ PetCreation updates `refreshTrigger` to reload PetList */}
             <PetCreation token={token} refreshPets={() => setRefreshTrigger((prev) => prev + 1)} />
 
             {children}

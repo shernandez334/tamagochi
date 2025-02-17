@@ -20,6 +20,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private PetService petService;
+
 
     @PostMapping("/register")
     public ResponseEntity<?> register( @Valid @RequestBody RegisterRequest registerRequest){
