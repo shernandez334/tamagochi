@@ -1,5 +1,29 @@
 const API_URL = "http://localhost:8080";
 
+export const loginUser = async (credentials) => {
+    try {
+        const response = await fetch("http://localhost:8080/login", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(credentials)
+        });
+
+        if (!response.ok) throw new Error("Failed to log in");
+
+        const data = await response.json();
+        
+        // ✅ Store userId in localStorage
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("userId", data.userId);  // 🔹 Save user ID!
+        localStorage.setItem("userRole", data.role);  // (Optional) Save role for isAdmin check
+
+        return data;
+    } catch (error) {
+        console.error("Error logging in:", error);
+        return null;
+    }
+};
+
 export const updatePetEnergy = async (petId, action) => {
     const token = localStorage.getItem("token");
 
@@ -127,8 +151,11 @@ export const deletePet = async (petId, token) => {
 };
 
 export const adminDeletePet = async (petId, token) => {
+    console.log("🚀 Sending DELETE Request:", `http://localhost:8080/admin/pets/delete/${petId}`);
+    console.log("🔑 Using Token:", token);
+
     try {
-        const response = await fetch(`http://localhost:8080/admin/pets/${petId}`, {
+        const response = await fetch(`http://localhost:8080/admin/pets/delete/${petId}`, {
             method: "DELETE",
             headers: {
                 "Authorization": `Bearer ${token}`,
@@ -136,10 +163,16 @@ export const adminDeletePet = async (petId, token) => {
             }
         });
 
-        if (!response.ok) throw new Error("Failed to delete pet");
+        console.log("📡 Response Status:", response.status);
+        const responseText = await response.text();
+        console.log("📡 Response Text:", responseText);
+
+        if (!response.ok) {
+            throw new Error(`Failed to delete pet: ${responseText}`);
+        }
         return true;
     } catch (error) {
-        console.error("Error deleting pet:", error);
+        console.error("🚨 Error deleting pet:", error);
         return false;
     }
 };

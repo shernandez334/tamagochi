@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -34,7 +36,29 @@ public class PetService {
         return COLORS.get(random.nextInt(COLORS.size()));
     }
 
+    private Users getAuthenticatedUser() {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        System.out.println("🔎 Principal Object: " + principal);
+
+        if (principal instanceof org.springframework.security.core.userdetails.User springUser) {
+            System.out.println("✅ Authenticated User: " + springUser.getUsername());
+
+            // Fetch user from database based on username
+            Users user = userRepo.findByUsername(springUser.getUsername());
+            if (user != null) {
+                System.out.println("✅ User found in database: " + user.getUsername());
+                return user;
+            }
+        }
+
+        System.out.println("❌ Authentication failed, returning null.");
+        return null;
+    }
+
     public ResponseEntity<?> createPet(String petName) {
+        if (petName == null || petName.trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Missing or empty pet name");
+        }
         Users user = getAuthenticatedUser();
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Unauthorized");
@@ -48,23 +72,10 @@ public class PetService {
         return ResponseEntity.ok("Pet created for user: " + user.getUsername());
     }
 
-    private Users getAuthenticatedUser() {
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-        if (principal instanceof UserPrincipal userPrincipal) {
-            return userPrincipal.getUser();
-        }
-
-        // 🛑 If SecurityContextHolder is empty, try extracting user from JWT
-        return null;
-    }
-
-
     public ResponseEntity<List<Pet>> showUserPets(String token) {
         if (token == null || !token.startsWith("Bearer ")) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-
         String jwt = token.substring(7); // Remove "Bearer " prefix
         String username = jwtService.extractUsername(jwt); // Extract username from JWT
         Users user = userRepo.findByUsername(username);
@@ -72,7 +83,6 @@ public class PetService {
         if (user == null) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
         }
-
         List<Pet> pets = petRepo.findByOwnerId(user.getId());
         return ResponseEntity.ok(pets);
     }

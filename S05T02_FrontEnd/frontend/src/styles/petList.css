@@ -28,28 +28,29 @@
 .pet-list {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+    gap: 15px;
     justify-content: center;
     width: 100%;
     padding: 5px;
 }
 
-/* 🔹 PET ITEM - Smooth Card */
+/* 🔹 PET ITEM */
 .pet-item {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background: rgba(30, 10, 50, 0.85);
     padding: 12px;
     border-radius: 10px;
     text-align: center;
     color: white;
-    width: 160px;
-    height: 200px;
+    width: 180px;
+    min-height: 250px;
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.2),
                 0 0 30px rgba(80, 80, 200, 0.3);
     transition: transform 0.2s ease-in-out, box-shadow 0.3s ease-in-out;
+    position: relative;
 }
 
 .pet-item:hover {
@@ -57,6 +58,13 @@
     box-shadow: 0 0 25px rgba(255, 100, 255, 0.8),
                 0 0 40px rgba(100, 50, 255, 0.7);
 }
+
+/* 🔹 RANDOM BACKGROUNDS */
+.bg1 { background: rgba(30, 10, 60, 0.9); }
+.bg2 { background: rgba(50, 20, 80, 0.9); }
+.bg3 { background: rgba(70, 30, 100, 0.9); }
+.bg4 { background: rgba(90, 40, 120, 0.9); }
+.bg5 { background: rgba(120, 50, 140, 0.9); }
 
 /* 🔹 PET IMAGE */
 .pet-image {
@@ -66,7 +74,7 @@
     filter: drop-shadow(0px 0px 10px rgba(255, 255, 255, 0.6));
 }
 
-/* 🔹 PET NAME - Subtle Glow */
+/* 🔹 PET NAME */
 .pet-item h3 {
     font-size: 16px;
     font-weight: bold;
@@ -82,27 +90,24 @@
     margin: 3px 0;
 }
 
-.pet-list::-webkit-scrollbar {
-    width: 6px;
+/* 🔹 DELETE ICON */
+.delete-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 100, 100, 0.7);
+    font-size: 16px;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
 }
 
-.pet-list::-webkit-scrollbar-thumb {
-    background: rgba(255, 100, 255, 0.7);
-    border-radius: 4px;
+.delete-icon:hover {
+    color: rgba(255, 50, 50, 1);
 }
 
-@media (max-width: 1024px) {
-    .pet-list {
-        grid-template-columns: repeat(2, 1fr); 
-    }
-}
-
-@media (max-width: 768px) {
-    .pet-list {
-        grid-template-columns: repeat(1, 1fr); 
-    }
-}
-
+/* 🔹 ENERGY BAR */
 .energy-bar {
     width: 100%;
     height: 10px;
@@ -118,18 +123,102 @@
     transition: width 0.5s ease-in-out;
 }
 
-.delete-icon {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: transparent;
-    border: none;
-    color: rgba(255, 100, 100, 0.7);
-    font-size: 18px;
-    cursor: pointer;
-    transition: color 0.2s ease-in-out;
+/* 🔹 BUTTON CONTAINER */
+.pet-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    margin-top: 8px;
 }
 
-.delete-icon:hover {
-    color: rgba(255, 50, 50, 1);
+/* 🔹 RANDOMIZE BUTTON */
+.pet-actions button {
+    background: #ffcc00;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s ease;
+    width: 100%;
+}
+
+.pet-actions button:hover {
+    background: #ffaa00;
+}
+
+/* 🔹 SCROLLBAR */
+.pet-list::-webkit-scrollbar {
+    width: 6px;
+}
+
+.pet-list::-webkit-scrollbar-thumb {
+    background: rgba(255, 100, 255, 0.7);
+    border-radius: 4px;
+}
+
+/* 🔹 RESPONSIVENESS */
+@media (max-width: 1024px) {
+    .pet-list {
+        grid-template-columns: repeat(3, 1fr); 
+    }
+}
+
+@media (max-width: 768px) {
+    .pet-list {
+        grid-template-columns: repeat(2, 1fr); 
+    }
+}
+
+@media (max-width: 480px) {
+    .pet-list {
+        grid-template-columns: repeat(1, 1fr); 
+    }
+}
+
+.bg1 {
+    background: linear-gradient(to bottom, #ff9966, #ff5e62); /* Warm sunset */
+    background-image: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e");
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 30px rgba(255, 150, 100, 0.5);
+    border-radius: 12px;
+}
+
+.bg2 {
+    background: linear-gradient(to bottom, #1b3b1a, #071f07);
+    background-image: url("../assets/mountain.jpg");
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 40px rgba(0, 100, 0, 0.8);
+    border-radius: 12px;
+}
+
+/* 🔹 3) 🏰 Medieval Castle */
+.bg3 {
+    background: linear-gradient(to bottom, #4a4a4a, #1c1c1c);
+    background-image: url("../assets/dune.jpg");
+    background-size: cover;
+    background-position: center;
+    box-shadow: inset 0 0 30px rgba(20, 20, 20, 0.8);
+    border-radius: 12px;
+}
+
+/* 🔹 BUTTON STYLES */
+.pet-actions button {
+    background: #ffcc00;
+    color: black;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: 0.3s ease;
+    width: 100%;
+}
+
+.pet-actions button:hover {
+    background: #ffaa00;
 }

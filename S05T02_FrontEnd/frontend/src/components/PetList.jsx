@@ -11,42 +11,35 @@ import purplePet from "../assets/pets/pet-purple.png";
 
 const petImages = { red: redPet, blue: bluePet, green: greenPet, yellow: yellowPet, purple: purplePet };
 
+const accessoriesList = ["🎩", "👓", "🎀", "🎸", "🎈", "🦄"];
+const backgrounds = ["bg1", "bg2", "bg3"]; 
+
 const PetList = ({ token, refreshTrigger, isAdmin }) => {
     const [pets, setPets] = useState([]);
     const [loading, setLoading] = useState(false);
+    const [randomAttributes, setRandomAttributes] = useState({});
 
     const getPets = useCallback(async () => {
         if (!token) {
             console.error("🚨 No token found!");
             return;
         }
-    
-        console.log("🛑 Calling fetchAllPets...");
-        console.log("🔑 Admin Token Used:", token);
-    
+
         try {
-            const petsData = isAdmin 
-                ? await fetchAllPets(token)   
-                : await fetchUserPets(token);
-    
-            console.log("🐾 Pets received in PetList:", petsData);
-    
-            if (Array.isArray(petsData) && petsData.length > 0) {
-                setPets(petsData);  // ✅ Ensure state updates correctly
+            const petsData = isAdmin ? await fetchAllPets(token) : await fetchUserPets(token);
+
+            if (Array.isArray(petsData)) {
+                setPets(petsData); 
             } else {
                 console.warn("⚠️ Pets data is empty or not an array:", petsData);
             }
         } catch (error) {
-            console.error("🚨 Error fetching pets in PetList:", error);
+            console.error("🚨 Error fetching pets:", error);
         }
-    }, [token, isAdmin]);    
+    }, [token, isAdmin]);
 
     useEffect(() => {
-        console.log("🔄 Fetching pets in PetList...");
-        console.log("👤 isAdmin:", isAdmin); 
-        console.log("🔑 Token used:", token); 
-    
-        getPets(); // ✅ Call without `.then()`, since it's an async function
+        getPets();
     }, [getPets, refreshTrigger, isAdmin, token]);
 
     const handleEnergyChange = async (petId, action) => {
@@ -75,6 +68,26 @@ const PetList = ({ token, refreshTrigger, isAdmin }) => {
         }
     };
 
+    const randomizeAccessory = (petId) => {
+        setRandomAttributes(prev => ({
+            ...prev,
+            [petId]: {
+                ...prev[petId],
+                accessory: accessoriesList[Math.floor(Math.random() * accessoriesList.length)]
+            }
+        }));
+    };
+
+    const randomizeBackground = (petId) => {
+        setRandomAttributes(prev => ({
+            ...prev,
+            [petId]: {
+                ...prev[petId],
+                background: backgrounds[Math.floor(Math.random() * backgrounds.length)]
+            }
+        }));
+    };
+
     const handleDeletePet = async (petId) => {
         const confirmed = window.confirm("Are you sure you want to delete this pet?");
         if (!confirmed) return;
@@ -82,7 +95,7 @@ const PetList = ({ token, refreshTrigger, isAdmin }) => {
         const success = isAdmin ? await adminDeletePet(petId, token) : await deletePet(petId, token);
 
         if (success) {
-            setPets((prevPets) => prevPets.filter((pet) => pet.petId !== petId)); // ✅ Instantly remove pet from UI
+            setPets((prevPets) => prevPets.filter((pet) => pet.petId !== petId));
         } else {
             alert("❌ Failed to delete pet.");
         }
@@ -96,31 +109,35 @@ const PetList = ({ token, refreshTrigger, isAdmin }) => {
                 {pets.length === 0 ? (
                     <p>No pets found.</p>
                 ) : (
-                    pets.map((pet) => (
-                        <div key={pet.petId} className="pet-item">
-                            {isAdmin && (
+                    pets.map((pet) => {
+                        const { accessory, background } = randomAttributes[pet.petId] || {};
+
+                        return (
+                            <div key={pet.petId} className={`pet-item ${background || ""}`}>
                                 <button className="delete-icon" onClick={() => handleDeletePet(pet.petId)}>
                                     <FaTrash />
                                 </button>
-                            )}
 
-                            <img src={petImages[pet.color] || redPet} alt={pet.name} className="pet-image" />
-                            <h3>{pet.name.replace(/['"]+/g, '')}</h3>
+                                <img src={petImages[pet.color] || redPet} alt={pet.name} className="pet-image" />
+                                
+                                <h3>{pet.name.replace(/['"]+/g, '')} {accessory || ""}</h3>
 
-                            <div className="energy-bar">
-                                <div className="energy-fill" style={{ width: `${pet.energy}%`, transition: "width 0.5s ease-in-out" }}></div>
-                            </div>
-                            <p>Energy: {pet.energy}%</p>
-
-                            {!isAdmin && (
-                                <div className="pet-actions">
-                                    <button disabled={loading} onClick={() => handleEnergyChange(pet.petId, "feed")}>🍖 Feed</button>
-                                    <button disabled={loading} onClick={() => handleEnergyChange(pet.petId, "play")}>🎾 Play</button>
-                                    <button disabled={loading} onClick={() => handleEnergyChange(pet.petId, "sleep")}>💤 Sleep</button>
+                                <div className="energy-bar">
+                                    <div className="energy-fill" style={{ width: `${pet.energy}%`, transition: "width 0.5s ease-in-out" }}></div>
                                 </div>
-                            )}
-                        </div>
-                    ))
+                                <p>Energy: {pet.energy}%</p>
+
+                                <div className="pet-actions">
+                                    <button onClick={() => handleEnergyChange(pet.petId, "sleep")}>😴 Sleep</button>
+                                    <button onClick={() => handleEnergyChange(pet.petId, "play")}>⚽ Play</button>
+                                    <button onClick={() => handleEnergyChange(pet.petId, "feed")}>🍎 Feed</button>
+
+                                    <button onClick={() => randomizeAccessory(pet.petId)}>🎭 Random Accessory</button>
+                                    <button onClick={() => randomizeBackground(pet.petId)}>🎨 Random Background</button>
+                                </div>
+                            </div>
+                        );
+                    })
                 )}
             </div>
         </div>

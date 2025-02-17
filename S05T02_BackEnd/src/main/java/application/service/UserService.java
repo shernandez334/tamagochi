@@ -66,5 +66,4 @@ public class UserService {
         System.out.println("🔑 Login Successful: " + user.getUsername() + " | Role: " + user.getUserRole().name());
         return ResponseEntity.ok(new AuthResponse(token, user.getUserRole().name()));
     }
-
 }
